@@ -1,0 +1,9 @@
+.TrackingOrder{
+    margin-right: 100px;
+}
+
+.track-order img{
+    position: relative;
+    width: 500px;
+    top: 50px;
+}

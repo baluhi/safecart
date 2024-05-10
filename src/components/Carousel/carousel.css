@@ -1,0 +1,33 @@
+.carousel-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.carousel {
+  background-color: #62cdff;
+  border-radius: 5px;
+}
+.carousel-content-text {
+  margin: 30px 30px;
+  font-weight: 600;
+}
+.carousel-content-text h2 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.carousel-btn {
+  background-color: black;
+  color: #ffff;
+  transition: ease-in 1s;
+}
+
+.carousel-btn:hover {
+  background-color: #006045;
+}
+.carouselImg {
+  width: 300px;
+height: auto;
+  
+  border-radius: 5px;
+}
