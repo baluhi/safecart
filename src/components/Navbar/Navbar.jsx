@@ -1,104 +1,387 @@
-import React from "react";
-import { Link } from "react-scroll";
+/* import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import "./navbar.css";
-const Navbar = () => {
+import { CartContext } from "../../context/context";
+
+const Navbar = ({ isAuthenticated }) => {
+
+  const {cartProducts,  wishListLength, wishListProducts, user, logout} =  useContext(CartContext); 
   return (
     <>
-      <nav className="nav navbar">
-        <div className="navbar-left">
-          <ul className="nav-items">
-            <div className="dropdown ">
-              <Link to="/">
+    <nav classNameName="navbar  ">
+        <div classNameName="navbar-left">
+          <ul classNameName="nav-items">
+            <div classNameName="dropdown ">
+              <Link to="/" classNameName="text-dark">
                 {" "}
-                <i className="bi bi-list"></i>Categories
+                <i classNameName="bi bi-list"></i>Categories
               </Link>
-              <div className="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+              <div classNameName="dropdown-content">
+                <Link to="#example">Link 1</Link>
+                <Link to="#example">Link 2</Link>
+                <Link to="#example">Link 3</Link>
               </div>
             </div>
 
-            <div className="dropdown">
-              <a className="text-dark" href="/">
+            <div classNameName="dropdown">
+              <Link classNameName="text-dark" to="/">
                 {" "}
-                Home Pages <i className="bi bi-chevron-down"></i>
-              </a>
-              <div className="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-              </div>
-            </div>
-            <div className="dropdown">
-              <Link to="/"> About</Link>
-            </div>
-            <div className="dropdown">
-              <Link to="/">
-                Shop Page <i className="bi bi-chevron-down"></i>
+                Home Pages <i classNameName="bi bi-chevron-down"></i>
               </Link>
-              <div className="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+              <div classNameName="dropdown-content">
+                <Link to="#example">Link 1</Link>
+                <Link to="#example">Link 2</Link>
+                <Link to="#example">Link 3</Link>
               </div>
             </div>
-            <div className="dropdown">
-              <Link to="/">
-                Pages <i className="bi bi-chevron-down"></i>
+            <div classNameName="dropdown">
+              <Link to="/about" classNameName="text-dark"> About</Link>
+            </div>
+            <div classNameName="dropdown">
+              <Link to="/" classNameName="text-dark">
+                Shop Page <i classNameName="bi bi-chevron-down"></i>
               </Link>
-              <div className="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+              <div classNameName="dropdown-content">
+                <Link to="#sdf">Link 1</Link>
+                <Link to="#sdf">Link 2</Link>
+                <Link to="#sdf">Link 3</Link>
               </div>
             </div>
-            <div className="dropdown">
-              <Link to="/">
+            <div classNameName="dropdown">
+              <Link to="/" classNameName="text-dark">
+                Pages <i classNameName="bi bi-chevron-down"></i>
+              </Link>
+              <div classNameName="dropdown-content">
+                <Link to="#sdf">Link 1</Link>
+                <Link to="#sdf">Link 2</Link>
+                <Link to="#sdf">Link 3</Link>
+              </div>
+            </div>
+            <div classNameName="dropdown">
+              <Link to="/" classNameName="text-dark">
                 {" "}
-                Blog <i className="bi bi-chevron-down"></i>
+                Blog <i classNameName="bi bi-chevron-down"></i>
               </Link>
-              <div className="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+              <div classNameName="dropdown-content">
+                <Link to="/blog">Blog Grid List</Link>
+                <Link to="#sdf">Blog List</Link>
               </div>
             </div>
-            <div className="dropdown">
-              <Link to="/"> Contact</Link>
+            <div classNameName="dropdown">
+              <Link to="/contact" classNameName="text-dark" style ={{color:"black"}}> Contact</Link>
             </div>
           </ul>
         </div>
-        <div className="navbarRight ">
-          <ul className="nav-items-right d-flex  justify-content-evenly">
-            <li style={{ background: "white" }}>
+        <div classNameName="navbarRight ">
+          <ul classNameName="nav-items-right">
+            {user.isUserLogedIn && <><li style={{ background: "white" }}>
               <Link to="/wishlist">
-                <i className="bi bi-heart"></i>
+                <i classNameName="bi bi-heart-fill "></i>
+                <span classNameName= "count">{wishListProducts.length }</span>
               </Link>
             </li>
             <li>
-              <a href='/cart'>
-                {" "}
-                <i className="bi bi-cart text-dark"></i>
-              </a>
-            </li>
-            <li className="dropdown ">
-              <Link
-                to="/login"
-                style={{ color: "rgb(154, 154, 154)", fontWeight: "600" }}
-              >
-                {" "}
-                <i className="bi bi-person"></i>Login/Register
+              <Link to="/cart">                
+                <i classNameName="bi bi-cart-fill "></i>
+                <span classNameName="count">{cartProducts.length}</span>
               </Link>
-              <div className="dropdown-content">
-                <a href="/login">Sign In</a>
-                <a href="#">Sign Up</a>
-              </div>
-            </li>
+            </li></> }
+            
+            {user.isUserLogedIn || user.isSellerLogedIn ? (
+              <li style={{background:"white"}}>
+                <p style={{fontWeight:"600"}}>
+                  {user.userName}{" "}
+                  
+                  <button onClick={() => logout()} classNameName="arrow-btn">
+                    {" "}
+                    <i classNameName="bi bi-box-arrow-left"></i>{" "}
+                  </button>
+                  
+                </p >{" "}
+              </li>
+            ) : (
+              <li classNameName="dropdown  login-link" style ={{padding:"5px"}} >
+                <Link  
+                  to="/login"
+                  style={{ color: "black", fontWeight: "600" }}
+                >
+                  {" "}
+                  <i classNameName="bi bi-person"></i>Login/Register
+                </Link>
+
+                <div classNameName="dropdown-content">
+                  <Link to="/login" >Sign In</Link>
+                  <Link to="/signup">Sign Up</Link>
+                </div>
+              </li>
+            )}
           </ul>
         </div>
-      </nav>
-    </>
+      </nav> 
+      </>
+      )
+
+    }
+export default Navbar; */
+
+
+
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../../context/context";
+import "./navbar.css";
+import SearchBar from "../SearchBar/SearchBar";
+
+const Navbar = ({ isAuthenticated }) => {
+  const { cartProducts, wishListProducts, user, logout } = useContext(CartContext);
+  return (
+    // <nav classNameName="navbar navbar-expand-lg navbar-light bg-light">
+    //   <div classNameName="container-fluid">
+    //     <Link classNameName="navbar-brand" to="/">
+    //       Navbar
+    //     </Link>
+    //     <button
+    //       classNameName="navbar-toggler"
+    //       type="button"
+    //       data-toggle="collapse"
+    //       data-target="#navbarNav"
+    //       aria-controls="navbarNav"
+    //       aria-expanded="false"
+    //       aria-label="Toggle navigation"
+    //     >
+    //       <span classNameName="navbar-toggler-icon"></span>
+    //     </button>
+    //     <div classNameName="collapse navbar-collapse" id="navbarNav">
+    //       <ul classNameName="navbar-nav mr-auto">
+    //         <li classNameName="nav-item dropdown">
+    //           <Link classNameName="nav-link dropdown-toggle" to="/" id="categoriesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //             <i classNameName="bi bi-list"></i> Categories
+    //           </Link>
+    //           <div classNameName="dropdown-menu" aria-labelledby="categoriesDropdown">
+    //             <Link classNameName="dropdown-item" to="#example">Link 1</Link>
+    //             <Link classNameName="dropdown-item" to="#example">Link 2</Link>
+    //             <Link classNameName="dropdown-item" to="#example">Link 3</Link>
+    //           </div>
+    //         </li>
+    //         <li classNameName="nav-item dropdown">
+    //           <Link classNameName="nav-link dropdown-toggle" to="/" id="homeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //             Home Pages
+    //           </Link>
+    //           <div classNameName="dropdown-menu" aria-labelledby="homeDropdown">
+    //             <Link classNameName="dropdown-item" to="#example">Link 1</Link>
+    //             <Link classNameName="dropdown-item" to="#example">Link 2</Link>
+    //             <Link classNameName="dropdown-item" to="#example">Link 3</Link>
+    //           </div>
+    //         </li>
+    //         <li classNameName="nav-item">
+    //           <Link classNameName="nav-link" to="/about">About</Link>
+    //         </li>
+    //         <li classNameName="nav-item dropdown">
+    //           <Link classNameName="nav-link dropdown-toggle" to="/" id="shopDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //             Shop Page
+    //           </Link>
+    //           <div classNameName="dropdown-menu" aria-labelledby="shopDropdown">
+    //             <Link classNameName="dropdown-item" to="#sdf">Link 1</Link>
+    //             <Link classNameName="dropdown-item" to="#sdf">Link 2</Link>
+    //             <Link classNameName="dropdown-item" to="#sdf">Link 3</Link>
+    //           </div>
+    //         </li>
+    //         <li classNameName="nav-item dropdown">
+    //           <Link classNameName="nav-link dropdown-toggle" to="/" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //             Pages
+    //           </Link>
+    //           <div classNameName="dropdown-menu" aria-labelledby="pagesDropdown">
+    //             <Link classNameName="dropdown-item" to="#sdf">Link 1</Link>
+    //             <Link classNameName="dropdown-item" to="#sdf">Link 2</Link>
+    //             <Link classNameName="dropdown-item" to="#sdf">Link 3</Link>
+    //           </div>
+    //         </li>
+    //         <li classNameName="nav-item dropdown">
+    //           <Link classNameName="nav-link dropdown-toggle" to="/" id="blogDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //             Blog
+    //           </Link>
+    //           <div classNameName="dropdown-menu" aria-labelledby="blogDropdown">
+    //             <Link classNameName="dropdown-item" to="/blog">Blog Grid List</Link>
+    //             <Link classNameName="dropdown-item" to="#sdf">Blog List</Link>
+    //           </div>
+    //         </li>
+    //         <li classNameName="nav-item">
+    //           <Link classNameName="nav-link" to="/contact">Contact</Link>
+    //         </li>
+    //       </ul>
+    //       <ul classNameName="navbar-nav ml-auto">
+    //         {user.isUserLogedIn && (
+    //           <>
+    //             <li classNameName="nav-item">
+    //               <Link classNameName="nav-link" to="/wishlist">
+    //                 <i classNameName="bi bi-heart-fill"></i>
+    //                 <span classNameName="badge badge-pill badge-danger">{wishListProducts.length}</span>
+    //               </Link>
+    //             </li>
+    //             <li classNameName="nav-item">
+    //               <Link classNameName="nav-link" to="/cart">
+    //                 <i classNameName="bi bi-cart-fill"></i>
+    //                 <span classNameName="badge badge-pill badge-danger">{cartProducts.length}</span>
+    //               </Link>
+    //             </li>
+    //           </>
+    //         )}
+    //         {user.isUserLogedIn || user.isSellerLogedIn ? (
+    //           <li classNameName="nav-item">
+    //             <p classNameName="nav-link mb-0">
+    //               {user.userName}
+    //               <button onClick={() => logout()} classNameName="btn btn-link p-0 ml-2">
+    //                 <i classNameName="bi bi-box-arrow-left"></i>
+    //               </button>
+    //             </p>
+    //           </li>
+    //         ) : (
+    //           <li classNameName="nav-item dropdown">
+    //             <Link classNameName="nav-link dropdown-toggle" to="/login" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //               <i classNameName="bi bi-person"></i> Login/Register
+    //             </Link>
+    //             <div classNameName="dropdown-menu" aria-labelledby="loginDropdown">
+    //               <Link classNameName="dropdown-item" to="/login">Sign In</Link>
+    //               <Link classNameName="dropdown-item" to="/signup">Sign Up</Link>
+    //             </div>
+    //           </li>
+    //         )}
+    //       </ul>
+    //     </div>
+    //   </div>
+    // </nav>
+    <nav className="navbar navbar-expand-lg navbar-warning bg-light">
+    <div className="container-fluid">
+    
+      <div>
+      
+      <a className="navbar-brand d-lg-none"  href="#">
+        <span >Browse Category</span>
+
+
+      </a>
+      </div>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <div className="d-lg-none">
+        <SearchBar/>
+        </div>
+        <ul className="navbar-nav">
+      
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle text-dark" href="/home" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Home Page
+            </a>
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a className="dropdown-item" href="/">Home List</a></li>
+              <li><a className="dropdown-item" href="#">Another action</a></li>
+              <li><a className="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link text-dark" aria-current="page" href="/about">About</a>
+            </li>
+
+            <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle text-dark" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blog
+            </a>
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a className="dropdown-item" href="/blog">Grid List</a></li>
+              <li><a className="dropdown-item" href="#">Another action</a></li>
+              <li><a className="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle text-dark" href="/shop page" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Shop Page
+            </a>
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a className="dropdown-item" href="#">Action</a></li>
+              <li><a className="dropdown-item" href="#">Another action</a></li>
+              <li><a className="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li>
+          <a className="nav-link" aria-current="page" href="/categories">Categories</a>
+          </li>
+           
+        <li>
+          <a className="nav-link" aria-current="page" href="/contact">Contact</a>
+          </li>
+
+          
+        
+          {/* <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown link
+            </a>
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a className="dropdown-item" href="#">Action</a></li>
+              <li><a className="dropdown-item" href="#">Another action</a></li>
+              <li><a className="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li> */}
+        </ul>
+
+        {/* Login */}
+
+        <div className="navbarRight ">
+          <ul className="nav-items-right">
+            {user.isUserLogedIn && <><li style={{ background: "white" }}>
+              <Link to="/wishlist">
+                <i className="bi bi-heart-fill "></i>
+                <span className= "count">{wishListProducts.length }</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/cart">                
+                <i className="bi bi-cart-fill "></i>
+                <span className="count">{cartProducts.length}</span>
+              </Link>
+            </li></> }
+            
+            {user.isUserLogedIn || user.isSellerLogedIn ? (
+              <li style={{background:"white"}}>
+                <p style={{fontWeight:"600"}}>
+                  {user.userName}{" "}
+                  
+                  <button onClick={() => logout()} className="arrow-btn">
+                    {" "}
+                    <i className="bi bi-box-arrow-left"></i>{" "}
+                  </button>
+                  
+                </p >{" "}
+              </li>
+            ) : (
+              <li className="dropdown  login-link" style ={{padding:"5px"}} >
+                <Link  
+                  to="/login" className="bg-warning"
+                  style={{ color: "black", fontWeight: "600" , padding:"10px"}}
+                >
+                  {" "}
+                  <i className="bi bi-person"></i>Login/Register
+                </Link>
+
+                <div className="dropdown-content ">
+                  <Link to="/login" >Sign In</Link>
+                  <Link to="/signup">Sign Up</Link>
+                </div>
+              </li>
+            )}
+          </ul>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    
+    </nav>
   );
 };
 

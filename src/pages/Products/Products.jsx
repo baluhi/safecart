@@ -1,43 +1,125 @@
-import React from "react";
-import data from "../../components/Data/DummyData";
+import React, {  useContext } from "react";
 import "./products.css";
+import { ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CartContext } from "../../context/context";
 
-const Products = ({handleAddProduct, handleWishList}) => {
- 
 
-  const productItems = data;
+import { Link } from "react-router-dom";
+
+const Products = () => {
+const {products, addToCart, addToWishList, user} =  useContext(CartContext);
+
+const dummydata = [
+  {
+    id:1,
+    image:"https://safecart.bytesed.com/assets/uploads/media-uploader/macbook-pro-laptop-653e0c1326fcd1698846943.webp",
+    title:"Macbook Pro",
+    price:"40000",
+    description:"An Apple Product"
+
+  },
+  {
+    id:2,
+    image:"https://safecart.bytesed.com/assets/uploads/media-uploader/51692277637-6542446c83e371698841719.webp",
+    title:"GuardianEye HD Surveillance Camera",
+    price:"30000",
+    description:"GuardianEye HD Surveillance Camera"
+
+  },
+  {   
+    id:3,
+    image:"https://safecart.bytesed.com/assets/uploads/media-uploader/41692277636-654244b547d551698841794.webp",
+    title:"SwiftGlide Precision Mouse",
+    price:"300",
+    description:"SwiftGlide Precision Mouse"
+
+  },
+  {
+    id:4,
+    image:"https://safecart.bytesed.com/assets/uploads/media-uploader/21692277634-654243f9e7edd1698841606.webp",
+    title:"PhoenixTech Motherboard X7",
+    price:"600",
+    description:"PhoenixTech Motherboard X7"
+
+  }
+
+]
+
 
 
   return (
-    <div className="container">
-        <h2>View all products</h2>
-      <div className="products">
-        {productItems.map((item, id) => {
+    <div className="mt-5"> 
+      <h2 className="">View all products</h2>
+      <div>
+        <div className="container">
+          <div className="row">
+          {dummydata?.map((item, id) => {
           return (
-            <div className="card border-0 " key={id}>
+            <div key={id} className="col-lg-3">
+            <div className="view-card border-0  "  style ={{height:"450px"}}>
               <div>
+                
                 <img
-                  className="product-image"
+                  className="product-image" 
                   src={item.image}
-                  alt={item.name}
+                  alt={item.title}
                 />
               </div>
-              <div>
-                <span className="product-name" style={{fontWeight:"500"}}> {item.name}</span><br/>
-                <span className="product-name" style={{color:"#0088dd"}}> ${item.price}.00</span>
-                <span style={{color:"#666666", textDecoration:"line-through", marginLeft:"10px", fontWeight:"600"}}>${item.price}.00</span>
+              <div className="niharika" >
+                <p className="product-name" style={{ fontWeight: "500", position:"relative", top:"-20px" }}>
+                  {" "}
+                  {item.title}
+                </p>
+                <p style ={{textAlign:"center", position:"relative", top:"-20px"}}>{item.description}</p>
+                
+                <br />
+                <p className="product-name" style={{ color: "#0088dd", textAlign:'center', position:"relative", top:"-50px" }}>
+                  {" "}
+                  ${item.price}.00
+                 
+                </p>
+                <p
+                  style={{
+                    color: "gray",
+                    textDecoration: "line-through",
+                  textAlign:'center',
+                    fontWeight: "400", position:"relative", top:"-50px"
+                  }}
+                >
+                  ${item.price}.00
+                </p>
               </div>
 
-
-
-              <div className="card-bottom-btn w-75 d-flex justify-content-between">
-                <button className=" add-cart-btn"  onClick ={() => {handleAddProduct(item)}}>Add to Cart</button>
-                <button className="product-card-btn-icon"><i className='bi bi-repeat'></i></button>
-                <button className="product-card-btn-icon" onClick ={() => {handleWishList(item)}}><i className='bi bi-heart'></i></button>
-             </div>
+              <div className="card-bottom-btn w-100 d-flex justify-content-evenly ">
+              {user.isSellerLogedIn ? undefined : <button
+                  className=" add-cart-btn"
+                  onClick={() => addToCart(item)}
+               style ={{position:"relative", top:"-60px"}} >
+                  Add to Cart
+                </button> }
+                <button  style={{marginLeft:'41px', position:"relative", top:"-60px"}}className="product-card-btn-icon" >
+                  <i className="bi bi-repeat"></i>
+                </button>
+                {user.isSellerLogedIn ? undefined :  <button
+                  className="product-card-btn-icon"
+                  onClick={() => addToWishList(item)}
+               style ={{position:"relative", top:"-60px"}} >
+                  <i className="bi bi-heart"></i>
+                </button>}
+               
+        <ToastContainer style={{position:"topRight", top:"0px"}} />
+              </div>
+              <p className="text-dark " style= {{margin:"20px", position:"relative", top:'-60px'}}><Link to={`/product/${item.sellerName}`} className="text-dark"> <span>Seller:</span>  {item.sellerName}  </Link></p>
+            </div>
             </div>
           );
         })}
+            
+          </div>
+        </div>
+
+      
       </div>
     </div>
   );

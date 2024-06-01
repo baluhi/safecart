@@ -13,8 +13,8 @@ const Carousel = () => {
     slidesToScroll: 1,
   };
   return (
-    <div className="container">
-      <div className="slider-container">
+    <div className="">
+      <div className="slider-container " id ="carousel-container">
         <Slider {...settings}>
           <div className="carousel">
             <div className="carousel-content d-flex">
